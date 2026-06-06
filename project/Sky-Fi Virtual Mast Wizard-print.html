@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sky-Fi · Virtual Mast Wizard — print</title>
+<link rel="stylesheet" href="design-tokens.css">
+<link rel="stylesheet" href="src/wizard.css">
+<link rel="stylesheet" href="src/wizard-print.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<!-- Wizard primitives -->
+<script type="text/babel" src="src/wizard-components.jsx"></script>
+
+<!-- Step components -->
+<script type="text/babel" src="src/wizard-steps-review.jsx"></script>
+<script type="text/babel" src="src/wizard-steps-input.jsx"></script>
+
+<!-- SkyFiMark + Spark are needed for the print pages — pull from the app file's globals.
+     Shim them so the print script has them without dragging in the full App. -->
+<script type="text/babel">
+// Re-define the few small components used by print pages.
+const SkyFiMark = () => (
+  <svg width="22" height="22" viewBox="0 0 96 96" fill="none" aria-hidden="true">
+    <rect width="96" height="96" rx="22" fill="var(--vf-red)"/>
+    <g transform="translate(16 16)" stroke="white" fill="white">
+      <g fill="none" strokeWidth="5" strokeLinecap="round">
+        <line x1="32" y1="32" x2="14" y2="14"/>
+        <line x1="32" y1="32" x2="50" y2="14"/>
+        <line x1="32" y1="32" x2="14" y2="50"/>
+        <line x1="32" y1="32" x2="50" y2="50"/>
+        <circle cx="13" cy="13" r="10"/>
+        <circle cx="51" cy="13" r="10"/>
+        <circle cx="13" cy="51" r="10"/>
+        <circle cx="51" cy="51" r="10"/>
+      </g>
+      <rect x="24" y="24" width="16" height="16" rx="5"/>
+    </g>
+  </svg>
+);
+const Spark = ({ seed = 1, ok }) => {
+  const pts = React.useMemo(() => {
+    const r = (i) => (Math.sin(seed * 13.7 + i * 1.31) + 1) * 0.5;
+    return Array.from({ length: 32 }).map((_, i) => 4 + r(i) * 14).map((v, i) => `${i * (100/31)},${20 - v}`).join(' ');
+  }, [seed]);
+  return (
+    <svg viewBox="0 0 100 20" preserveAspectRatio="none">
+      <polyline points={pts} fill="none" stroke={ok ? 'var(--sf-signal-green)' : 'var(--sf-sky-blue)'} strokeWidth="1.4"/>
+    </svg>
+  );
+};
+Object.assign(window, { SkyFiMark, Spark });
+</script>
+
+<!-- Print app entry -->
+<script type="text/babel" src="src/wizard-print.jsx"></script>
+</body>
+</html>

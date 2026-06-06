@@ -1,0 +1,217 @@
+/* ============================================================
+   Vodafone Sky-Fi Design System — Colors & Typography
+   Source: Vodafone brand guidelines + Sky-Fi product context
+   ============================================================ */
+
+/* ── Fonts ── */
+@font-face {
+  font-family: 'VodafoneRg';
+  src: url('fonts/vodafone-regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'VodafoneRg';
+  src: url('fonts/vodafone-light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'VodafoneRg';
+  src: url('fonts/vodafone-bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+:root {
+
+  /* ─────────────────────────────────────────────
+     BRAND PALETTE
+     Core Vodafone brand colors
+  ───────────────────────────────────────────── */
+
+  /* Primary */
+  --vf-red:          #E60000;   /* Vodafone Red — primary brand */
+  --vf-red-dark:     #B30000;   /* Pressed / hover */
+  --vf-red-light:    #FF4040;   /* Light tint */
+  --vf-red-tint:     #FFE5E5;   /* Background tint */
+
+  /* Neutral */
+  --vf-dark:         #1A1A1A;   /* Near-black body text */
+  --vf-charcoal:     #333333;   /* Secondary dark */
+  --vf-mid-grey:     #4A4D4E;   /* UI grey */
+  --vf-grey:         #767676;   /* Muted text */
+  --vf-light-grey:   #BEBEBE;   /* Borders, dividers */
+  --vf-off-white:    #F4F4F4;   /* Surface / background */
+  --vf-white:        #FFFFFF;
+
+  /* Extended palette (Vodafone full brand set) */
+  --vf-violet:       #9C2AA0;   /* Vodafone Violet */
+  --vf-plum:         #5E2750;   /* Vodafone Plum */
+  --vf-aqua:         #00B0CA;   /* Vodafone Aqua */
+  --vf-teal:         #007C92;   /* Vodafone Teal */
+  --vf-spring:       #A8B400;   /* Vodafone Spring */
+  --vf-yellow:       #FECB00;   /* Vodafone Yellow */
+  --vf-amber:        #EB9800;   /* Vodafone Amber */
+
+  /* Sky-Fi product accent (sky + tech feel) */
+  --sf-sky-blue:     #00B0CA;   /* Aliased from aqua — sky/drone theme */
+  --sf-sky-dark:     #007C92;   /* Deeper sky / signal */
+  --sf-sky-light:    #E0F7FA;   /* Pale sky background */
+  --sf-signal-green: #A8B400;   /* Signal good / operational */
+  --sf-signal-amber: #EB9800;   /* Warning / degraded */
+  --sf-signal-red:   #E60000;   /* Critical / alert */
+
+  /* ─────────────────────────────────────────────
+     SEMANTIC COLOR TOKENS
+  ───────────────────────────────────────────── */
+
+  --color-primary:         var(--vf-red);
+  --color-primary-hover:   var(--vf-red-dark);
+  --color-primary-light:   var(--vf-red-tint);
+
+  --color-accent:          var(--sf-sky-blue);
+  --color-accent-dark:     var(--sf-sky-dark);
+
+  --color-bg:              var(--vf-white);
+  --color-bg-surface:      var(--vf-off-white);
+  --color-bg-dark:         var(--vf-dark);
+
+  --color-text-primary:    var(--vf-dark);
+  --color-text-secondary:  var(--vf-mid-grey);
+  --color-text-muted:      var(--vf-grey);
+  --color-text-inverse:    var(--vf-white);
+  --color-text-link:        var(--vf-red);
+
+  --color-border:          var(--vf-light-grey);
+  --color-border-strong:   var(--vf-mid-grey);
+
+  --color-success:         var(--sf-signal-green);
+  --color-warning:         var(--sf-signal-amber);
+  --color-danger:          var(--sf-signal-red);
+
+  /* ─────────────────────────────────────────────
+     TYPOGRAPHY SYSTEM
+  ───────────────────────────────────────────── */
+
+  --font-brand:     'VodafoneRg', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-body:      'VodafoneRg', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-mono:      'Courier New', Courier, monospace;
+
+  /* Scale */
+  --text-xs:    11px;
+  --text-sm:    13px;
+  --text-base:  16px;
+  --text-md:    18px;
+  --text-lg:    22px;
+  --text-xl:    28px;
+  --text-2xl:   36px;
+  --text-3xl:   48px;
+  --text-4xl:   64px;
+  --text-5xl:   80px;
+
+  /* Weight */
+  --fw-light:    300;
+  --fw-regular:  400;
+  --fw-bold:     700;
+
+  /* Leading */
+  --leading-tight:   1.15;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.75;
+
+  /* Letter spacing */
+  --tracking-tight:  -0.02em;
+  --tracking-normal: 0em;
+  --tracking-wide:   0.06em;
+  --tracking-wider:  0.12em;
+
+  /* ─────────────────────────────────────────────
+     SEMANTIC TYPE TOKENS
+     (assign to HTML elements via reset/base css)
+  ───────────────────────────────────────────── */
+
+  --type-h1-size:     var(--text-3xl);
+  --type-h1-weight:   var(--fw-bold);
+  --type-h1-leading:  var(--leading-tight);
+  --type-h1-tracking: var(--tracking-tight);
+
+  --type-h2-size:     var(--text-2xl);
+  --type-h2-weight:   var(--fw-bold);
+  --type-h2-leading:  var(--leading-tight);
+  --type-h2-tracking: var(--tracking-tight);
+
+  --type-h3-size:     var(--text-xl);
+  --type-h3-weight:   var(--fw-bold);
+  --type-h3-leading:  1.2;
+
+  --type-h4-size:     var(--text-lg);
+  --type-h4-weight:   var(--fw-bold);
+  --type-h4-leading:  1.25;
+
+  --type-body-size:   var(--text-base);
+  --type-body-weight: var(--fw-regular);
+  --type-body-leading: var(--leading-normal);
+
+  --type-small-size:  var(--text-sm);
+  --type-small-weight: var(--fw-regular);
+  --type-small-leading: var(--leading-relaxed);
+
+  --type-label-size:    var(--text-xs);
+  --type-label-weight:  var(--fw-bold);
+  --type-label-tracking: var(--tracking-wider);
+  --type-label-transform: uppercase;
+
+  --type-code-size:   var(--text-sm);
+  --type-code-family: var(--font-mono);
+
+  /* ─────────────────────────────────────────────
+     SPACING SCALE
+  ───────────────────────────────────────────── */
+
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   20px;
+  --space-6:   24px;
+  --space-8:   32px;
+  --space-10:  40px;
+  --space-12:  48px;
+  --space-16:  64px;
+  --space-20:  80px;
+  --space-24:  96px;
+  --space-32:  128px;
+
+  /* ─────────────────────────────────────────────
+     BORDER RADIUS
+  ───────────────────────────────────────────── */
+
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 9999px;
+
+  /* ─────────────────────────────────────────────
+     SHADOWS (elevation system)
+  ───────────────────────────────────────────── */
+
+  --shadow-xs:  0 1px 2px rgba(0,0,0,0.08);
+  --shadow-sm:  0 2px 4px rgba(0,0,0,0.10);
+  --shadow-md:  0 4px 12px rgba(0,0,0,0.12);
+  --shadow-lg:  0 8px 24px rgba(0,0,0,0.14);
+  --shadow-xl:  0 16px 48px rgba(0,0,0,0.18);
+  --shadow-red: 0 4px 16px rgba(230,0,0,0.25);
+
+  /* ─────────────────────────────────────────────
+     TRANSITIONS
+  ───────────────────────────────────────────── */
+
+  --ease-out:   cubic-bezier(0.0, 0.0, 0.2, 1);
+  --ease-in:    cubic-bezier(0.4, 0.0, 1, 1);
+  --ease-inout: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --duration-fast:   150ms;
+  --duration-normal: 250ms;
+  --duration-slow:   400ms;
+}

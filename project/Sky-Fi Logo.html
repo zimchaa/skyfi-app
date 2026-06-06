@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Sky-Fi Logo</title>
+<link rel="stylesheet" href="design-tokens.css"/>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: var(--font-body, 'Helvetica Neue', Arial, sans-serif);
+    background: var(--vf-off-white);
+    color: var(--vf-dark);
+    padding: 48px;
+  }
+  h1 { font-size: 20px; font-weight: 700; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .sub { font-size: 13px; color: var(--vf-grey); margin: 0 0 40px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+  .card {
+    background: #fff; border: 1px solid var(--vf-light-grey); border-radius: 12px;
+    padding: 28px; display: flex; flex-direction: column; gap: 18px;
+    box-shadow: var(--shadow-xs);
+  }
+  .card.dark { background: #141414; border-color: #2a2a2a; }
+  .card .stage { display: flex; align-items: center; justify-content: center; min-height: 120px; }
+  .label { font-family: var(--font-mono); font-size: 11px; color: var(--vf-grey); letter-spacing: 0.04em; }
+  .card.dark .label { color: #777; }
+  .row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; justify-content: center; }
+</style>
+</head>
+<body>
+<h1>Sky-Fi — logo recreation</h1>
+<p class="sub">Vector rebuild of the uploaded mark: red speech mark · lowercase wordmark · quadcopter over the "fi".</p>
+
+<div class="grid">
+
+  <!-- Reference -->
+  <div class="card">
+    <div class="label">UPLOADED REFERENCE</div>
+    <div class="stage"><img src="uploads/skyfilogo.jpg" alt="reference" style="max-width:240px;width:100%"/></div>
+  </div>
+
+  <!-- Full lockup -->
+  <div class="card">
+    <div class="label">RECREATED LOCKUP</div>
+    <div class="stage">
+      <svg width="260" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg" id="lockup">
+        <!-- speech mark (bulb up, tail curling down-left) -->
+        <g id="mark" transform="translate(48 92) scale(-1 1)">
+          <path d="M30 0C13.4 0 0 12.6 0 28.2 0 42 9.6 53.4 23 56.2c1.2.2 1.6 1.1 1 2.4-2.4 5-6.4 8.8-12 11.4-1.1.5-.8 1.9.5 1.9 18.2-.2 34-13.6 34-32.5C46 13.5 39.4 0 30 0Z" fill="#E60000" transform="translate(0 -70)"/>
+        </g>
+        <!-- wordmark -->
+        <text x="56" y="86" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="68" letter-spacing="-3" fill="#1A1A1A">sky-fi</text>
+        <!-- drone over the fi -->
+        <g id="drone" transform="translate(196 0) scale(0.58)" stroke="#E60000" fill="#E60000">
+          <line x1="32" y1="40" x2="32" y2="74" stroke-width="3"/>
+          <g fill="none" stroke-width="5" stroke-linecap="round">
+            <line x1="32" y1="32" x2="14" y2="14"/>
+            <line x1="32" y1="32" x2="50" y2="14"/>
+            <line x1="32" y1="32" x2="14" y2="50"/>
+            <line x1="32" y1="32" x2="50" y2="50"/>
+            <circle cx="13" cy="13" r="10"/>
+            <circle cx="51" cy="13" r="10"/>
+            <circle cx="13" cy="51" r="10"/>
+            <circle cx="51" cy="51" r="10"/>
+          </g>
+          <rect x="24" y="24" width="16" height="16" rx="5"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- App icon on white -->
+  <div class="card">
+    <div class="label">APP ICON — speech mark tile</div>
+    <div class="stage">
+      <div class="row">
+        <svg width="96" height="96" viewBox="0 0 96 96"><use href="#tileMark"/></svg>
+        <svg width="48" height="48" viewBox="0 0 96 96"><use href="#tileMark"/></svg>
+        <svg width="28" height="28" viewBox="0 0 96 96"><use href="#tileMark"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- App icon drone tile -->
+  <div class="card dark">
+    <div class="label">APP ICON — drone tile</div>
+    <div class="stage">
+      <div class="row">
+        <svg width="96" height="96" viewBox="0 0 96 96"><use href="#tileDrone"/></svg>
+        <svg width="48" height="48" viewBox="0 0 96 96"><use href="#tileDrone"/></svg>
+        <svg width="28" height="28" viewBox="0 0 96 96"><use href="#tileDrone"/></svg>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- reusable symbols -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <g id="tileMark">
+    <rect width="96" height="96" rx="22" fill="#E60000"/>
+    <g transform="translate(96 0) scale(-1 1)">
+      <path transform="translate(28 26) scale(0.74)" d="M30 0C13.4 0 0 12.6 0 28.2 0 42 9.6 53.4 23 56.2c1.2.2 1.6 1.1 1 2.4-2.4 5-6.4 8.8-12 11.4-1.1.5-.8 1.9.5 1.9 18.2-.2 34-13.6 34-32.5C46 13.5 39.4 0 30 0Z" fill="#fff"/>
+    </g>
+  </g>
+  <g id="tileDrone">
+    <rect width="96" height="96" rx="22" fill="#E60000"/>
+    <g transform="translate(16 16) scale(1.0)" stroke="#fff" fill="#fff">
+      <g fill="none" stroke-width="5" stroke-linecap="round">
+        <line x1="32" y1="32" x2="14" y2="14"/>
+        <line x1="32" y1="32" x2="50" y2="14"/>
+        <line x1="32" y1="32" x2="14" y2="50"/>
+        <line x1="32" y1="32" x2="50" y2="50"/>
+        <circle cx="13" cy="13" r="10"/>
+        <circle cx="51" cy="13" r="10"/>
+        <circle cx="13" cy="51" r="10"/>
+        <circle cx="51" cy="51" r="10"/>
+      </g>
+      <rect x="24" y="24" width="16" height="16" rx="5"/>
+    </g>
+  </g>
+</svg>
+
+</body>
+</html>
