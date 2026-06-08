@@ -1,25 +1,98 @@
-# CODING AGENTS: READ THIS FIRST
+# Sky-Fi Virtual Mast Wizard
 
-This is a **handoff bundle** from Claude Design (claude.ai/design).
+A mobile-first pre-flight wizard that guides an operator through safety and regulatory checks before deploying a tethered comms drone (4G/WiFi payload) into a disaster zone. Designed to run fully offline on a Raspberry Pi acting as a field WiFi access point, with the operator's phone or tablet as the display device.
 
-A user mocked up designs in HTML/CSS/JS using an AI design tool, then exported this bundle so a coding agent can implement the designs for real.
+## Origin
 
-## What you should do — IMPORTANT
+The UX was designed using [Claude Design](https://claude.ai/design) and exported as a prototype handoff. The original prototype files live in `prototype/` alongside the Claude Design chat transcripts in `chats/`. These are the design reference — the production app is built in `app/`.
 
-**Read the chat transcripts first.** There are 2 chat transcript(s) in `chats/`. The transcripts show the full back-and-forth between the user and the design assistant — they tell you **what the user actually wants** and **where they landed** after iterating. Don't skip them. The final HTML files are the output, but the chat is where the intent lives.
+## Field topology
 
-**Read `project/Sky-Fi Virtual Mast Wizard.html` in full.** The user had this file open when they triggered the handoff, so it's almost certainly the primary design they want built. Read it top to bottom — don't skim. Then **follow its imports**: open every file it pulls in (shared components, CSS, scripts) so you understand how the pieces fit together before you start implementing.
+```
+operator's phone/tablet
+        │ WiFi (joins Pi's own SSID)
+        ▼
+Raspberry Pi (ground station)
+  • WiFi access point (hostapd)
+  • Captive portal → wizard opens automatically
+  • Serves static SPA + local REST API
+  • SQLite persistence (crash-safe, offline)
+  • Cryptographic sealing of flight packages
+        │ tether data line        │ opportunistic bearer
+        ▼                         ▼
+drone autopilot (MAVLink)    ops centre (cloud)
+                              briefing bundles ↓ / packages + logs ↑
+```
 
-**If anything is ambiguous, ask the user to confirm before you start implementing.** It's much cheaper to clarify scope up front than to build the wrong thing.
+The device serves; the phone renders. The Pi has near-zero compute load from the frontend.
 
-## About the design files
+## Running the prototype
 
-The design medium is **HTML/CSS/JS** — these are prototypes, not production code. Your job is to **recreate them pixel-perfectly** in whatever technology makes sense for the target codebase (React, Vue, native, whatever fits). Match the visual output; don't copy the prototype's internal structure unless it happens to fit.
+The prototype requires no build step — open the standalone bundle directly:
 
-**Don't render these files in a browser or take screenshots unless the user asks you to.** Everything you need — dimensions, colors, layout rules — is spelled out in the source. Read the HTML and CSS directly; a screenshot won't tell you anything they don't.
+```bash
+# In a browser
+open prototype/Sky-Fi\ Virtual\ Mast\ Wizard.standalone.html
 
-## Bundle contents
+# Or serve the prototype source over HTTP (required for some browser APIs)
+cd prototype
+python3 -m http.server 8080
+# then open http://localhost:8080/Sky-Fi%20Virtual%20Mast%20Wizard.html
+```
 
-- `README.md` — this file
-- `chats/` — conversation transcripts (read these!)
-- `project/` — the `Sky-Fi - Virtual Mast Wizard` project files (HTML prototypes, assets, components)
+To serve from a Raspberry Pi on its local network:
+
+```bash
+python3 -m http.server 8080 --bind 0.0.0.0
+# operator opens http://<pi-ip>:8080/ from their phone
+```
+
+## Running the production app (Phase 0+)
+
+```bash
+cd app
+npm install
+npm run dev          # development server with HMR
+npm run build        # production build → app/dist/
+npm run preview      # preview the production build locally
+```
+
+The `app/dist/` output is a fully static bundle — copy it to any web server or embed it in the Go device binary.
+
+## Architecture decisions
+
+See [`DEPLOYMENT-ARCHITECTURE.md`](DEPLOYMENT-ARCHITECTURE.md) for the full rationale. Key decisions:
+
+| Concern | Choice | Why |
+|---|---|---|
+| Frontend build | Vite + React + TypeScript | Replaces in-browser Babel transpile; produces vendored static bundle |
+| Device server | Go single binary | Embeds `dist/`, tiny RAM footprint, single static binary cross-compiles to ARM |
+| Persistence | SQLite (WAL mode) | Embedded, crash-safe, zero-overhead on a Pi |
+| Crypto sealing | Ed25519 (Go stdlib / Rust crate) | Operator + device counter-signature on the sealed flight package |
+| Offline maps | PMTiles + MapLibre GL JS | Single-file tile archive, no tile server process |
+| Cloud pipeline | Python | Rich aviation/geo data ecosystem for briefing-bundle generation |
+| Sync | Durable outbound queue (SQLite) + Litestream | Never blocks the wizard; streams WAL to object storage opportunistically |
+
+## Roadmap
+
+| Phase | Scope |
+|---|---|
+| **0** | Vite + TS build, vendor React, PWA + service worker, IndexedDB autosave, real signature capture, typed schema |
+| **1** | Go device server: embedded SPA, REST API, SQLite, crypto sealing, captive portal, offline map tiles |
+| **2** | Cloud briefing-bundle pipeline (Python); signed bundle install on device; opportunistic sync queue |
+| **3** | MAVLink drone integration (geofence, handoff, live telemetry); hardware keys; mTLS; LUKS |
+| **4** | Ops-centre fleet dashboard; 7-year audit store; RAUC/Mender OTA; per-mission step config |
+
+## Repository layout
+
+```
+app/          Production app (Vite + React + TypeScript) — Phase 0+
+prototype/    Claude Design prototype (read-only reference)
+  src/          Wizard JSX source components
+  assets/       SVG logos and marks
+  fonts/        Vodafone brand fonts
+  chats/ *      Design chat transcripts (* kept at repo root)
+chats/        Claude Design conversation transcripts (design intent)
+DEPLOYMENT-ARCHITECTURE.md  Full deployment design and rationale
+CLAUDE.md     Guidance for Claude Code
+```
