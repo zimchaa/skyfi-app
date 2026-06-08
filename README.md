@@ -26,6 +26,28 @@ drone autopilot (MAVLink)    ops centre (cloud)
 
 The device serves; the phone renders. The Pi has near-zero compute load from the frontend.
 
+## Prerequisites
+
+Node.js is managed via [nvm](https://github.com/nvm-sh/nvm) — this works the same on a laptop and on a Raspberry Pi (ARM64).
+
+```bash
+# Install nvm (if not already installed)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+
+# Restart your shell, then install and use the pinned version
+cd app
+nvm install   # reads .nvmrc → installs Node 22 LTS
+nvm use       # activates it for this shell session
+```
+
+To activate automatically when entering the `app/` directory, add this to your `~/.bashrc` or `~/.zshrc`:
+
+```bash
+# Auto-switch Node version when entering a directory with .nvmrc
+cdnvm() { cd "$@" && [ -f .nvmrc ] && nvm use; }
+alias cd=cdnvm
+```
+
 ## Running the prototype
 
 The prototype requires no build step — open the standalone bundle directly:

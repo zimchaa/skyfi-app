@@ -63,6 +63,12 @@ Per-step state lives in `allData[stepId]` keyed by step id. `__prefilled: true` 
 
 `design-tokens.css` and `--vf-*` CSS variables encode the Vodafone brand palette. The `data-theme` attribute on the root switches light/dark. Do not hardcode colours; use the token variables.
 
+## Development environment
+
+Node.js is managed via **nvm** — use `nvm install` / `nvm use` inside `app/` to activate Node 22 LTS (pinned in `app/.nvmrc`). This applies on both the development laptop and the Raspberry Pi. Do not assume a system Node install exists.
+
+The Pi target is ARM64 (Raspberry Pi 4/CM4 or Pi 5). Cross-compilation targets for the Go device binary: `GOOS=linux GOARCH=arm64`.
+
 ## What NOT to do
 
 - Do not serve from a CDN in production — there is no internet at the field site. All dependencies must be vendored/bundled.
