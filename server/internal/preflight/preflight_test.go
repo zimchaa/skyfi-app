@@ -176,3 +176,28 @@ func TestOverride(t *testing.T) {
 		t.Fatalf("launch under override: alt=%v err=%v", alt, err)
 	}
 }
+
+func TestCountryApprovals(t *testing.T) {
+	s := newSvc(t, calm)
+	v, _ := s.Start("field-demo")
+	if e := stepErrs(v, "approvals"); len(e) != 2 {
+		t.Fatalf("uk approvals empty: %v", e)
+	}
+	v, _ = s.SaveStep(v.Run.ID, "approvals", map[string]any{"operator_id": "not-an-id", "sora_confirmed": true})
+	if e := stepErrs(v, "approvals"); len(e) != 1 || !strings.Contains(e[0], "invalid format") {
+		t.Fatalf("uk operator id: %v", e)
+	}
+	v, _ = s.SaveStep(v.Run.ID, "approvals", map[string]any{"operator_id": "GBR-OP-ABC123DEF456", "sora_confirmed": true})
+	if e := stepErrs(v, "approvals"); len(e) != 0 {
+		t.Fatalf("uk approvals filled: %v", e)
+	}
+
+	v, _ = s.Start("jamaica-demo")
+	if e := stepErrs(v, "approvals"); len(e) != 1 {
+		t.Fatalf("jamaica approvals empty: %v", e)
+	}
+	v, _ = s.SaveStep(v.Run.ID, "approvals", map[string]any{"jcaa_confirmed": true})
+	if e := stepErrs(v, "approvals"); len(e) != 0 {
+		t.Fatalf("jamaica approvals filled: %v", e)
+	}
+}

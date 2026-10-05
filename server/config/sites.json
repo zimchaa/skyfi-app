@@ -22,7 +22,7 @@
       "id": "field-demo",
       "name": "Field demo site",
       "description": "Example outdoor site with a 300 m operating area. Replace the coordinates with a real site.",
-      "procedure": "standard",
+      "procedure": "uk",
       "lat": 51.5014,
       "lon": -0.1419,
       "radius_m": 300,
@@ -38,6 +38,27 @@
       },
       "contact": { "name": "Regional ops centre", "phone": "+44 0000 000001" },
       "regulatory": "UK CAA: operate under the site's operational authorisation. Maintain VLOS of the tether point, keep 50 m from uninvolved people, and log the flight."
+    },
+    {
+      "id": "jamaica-demo",
+      "name": "Jamaica demo site",
+      "description": "Example outdoor site in Kingston with a 300 m operating area. Replace the coordinates with a real site.",
+      "procedure": "jamaica",
+      "lat": 17.9970,
+      "lon": -76.7936,
+      "radius_m": 300,
+      "rules": {
+        "max_alt_m": 120,
+        "wind_land_ms": 9,
+        "gust_land_ms": 13,
+        "min_crew": 2,
+        "validity_h": 8,
+        "allow_override": true,
+        "override_validity_h": 1,
+        "require_cloud_sync": false
+      },
+      "contact": { "name": "Regional ops centre", "phone": "+1 876 000 0000" },
+      "regulatory": "JCAA: operate only with Jamaica Civil Aviation Authority approval (uavrequests@jcaa.gov.jm). Maintain VLOS of the tether point, keep clear of uninvolved people, and log the flight."
     }
   ]
 }

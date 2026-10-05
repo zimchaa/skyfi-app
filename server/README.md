@@ -19,7 +19,8 @@ Launch is gated on a **sealed pre-flight** for the site (or a logged emergency o
     tel number location live_weather photo crew signature`. Choice options can `blocks` launch or
     lower the ceiling (`max_alt_m`). Step `rules` compare operands, e.g.
     `parameters.tether >= parameters.altitude`, `parameters.altitude <= $limits.max_alt_m`. Text
-    can use `$site.…` / `$limits.…` tokens
+    can use `$site.…` / `$limits.…` tokens. Country requirements are a procedure per country
+    (`uk`: CAA operator ID + SORA/authorisation; `jamaica`: JCAA approval), chosen by the site
   - `operators.json`: roles (`pic`, `observer`), certificate and expiry
 - The server validates every save against the config (`internal/preflight`), so the rules exist
   in one place. Completing a run seals the canonical record (SHA-256, signed with the device
